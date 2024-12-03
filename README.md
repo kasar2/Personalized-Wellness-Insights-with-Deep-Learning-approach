@@ -36,6 +36,3 @@ C.Report Generation Function: A function is created to generate personalized rep
 
 D.Implementation: The model processes user data to compute averages and generate insights, utilizing techniques such as dropout and batch normalization to improve performance.
 
-E.Integration with a Yoga App Flask API: A simple API is created using Flask to simulate integration with a yoga app. Users can request their personalized wellness insights by accessing a specific endpoint with their User ID.
-
-The API returns a JSON response containing the user's report, including deep learning-generated insights.
