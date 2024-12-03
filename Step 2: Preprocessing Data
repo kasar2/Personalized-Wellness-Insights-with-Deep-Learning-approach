@@ -1,0 +1,29 @@
+//Step 2: Preprocessing Data for Deep Learning
+//We need to preprocess the data to prepare it for the deep learning model.
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+
+# Prepare features and labels
+X = []
+y = []
+
+for index, row in df.iterrows():
+    pose_proficiency = list(row['Pose_Proficiency'].values())
+    features = [row['Session_Duration']] + pose_proficiency + [row['Engagement']]
+    X.append(features)
+    # For simplicity, let's say we want to predict engagement as a label
+    y.append(row['Engagement'])
+
+X = np.array(X)
+y = np.array(y)
+
+# Split the data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Standardize the features
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
