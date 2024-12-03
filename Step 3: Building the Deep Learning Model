@@ -1,0 +1,19 @@
+//Step 3: Building the Deep Learning Model
+//Now, we will create a simple neural network model using Keras.
+
+from keras.models import Sequential
+from keras.layers import Dense, Dropout
+
+# Build the model
+model = Sequential()
+model.add(Dense(64, activation='relu', input_shape=(X_train.shape[1],)))
+model.add(Dropout(0.2))
+model.add(Dense(32, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(1, activation='linear'))  # Regression output for engagement
+
+# Compile the model
+model.compile(optimizer='adam', loss='mean_squared_error', metrics=['mae'])
+
+# Train the model
+model.fit(X_train, y_train, epochs=100, batch_size=10, validation_split=0.2)
