@@ -1,0 +1,20 @@
+//Step 4: Generating Reports
+//We will create a function to generate personalized reports based on the model's predictions.
+
+def generate_report(user_id, user_data):
+    report = {}
+    report['User _ID'] = user_id
+    report['Session_Duration'] = user_data['Session_Duration'].values[0]
+    report['Engagement'] = user_data['Engagement'].values[0]
+    
+    # Calculate average pose proficiency
+    pose_proficiency = user_data['Pose_Proficiency'].apply(pd.Series).mean().to_dict()
+    report['Average_Pose_Proficiency'] = pose_proficiency
+    
+    # Predict future engagement
+    features = np.array([[user_data['Session_Duration'].values[0]] + list(pose_proficiency.values()) + [user_data['Engagement'].values[0]]])
+    features = scaler.transform(features)
+    predicted_engagement = model.predict(features)
+    report['Predicted_Engagement'] = predicted_engagement[0][0]
+    
+    return report
