@@ -1,0 +1,21 @@
+//Step 1: Data Generation
+//First, we will generate synthetic data to simulate user interactions with yoga sessions.
+
+import pandas as pd
+import numpy as np
+
+# Generate synthetic data
+np.random.seed(42)
+num_users = 100
+data = {
+    'User _ID': [f'User _{i+1}' for i in range(num_users)],
+    'Session_Duration': np.random.randint(20, 60, num_users),  # minutes
+    'Pose_Proficiency': np.random.randint(0, 101, (num_users, 5)).tolist(),  # 5 poses
+    'Engagement': np.random.randint(0, 101, num_users),  # engagement score
+    'User _Feedback': ['Great session!' if np.random.rand() > 0.5 else 'Could be better.' for _ in range(num_users)]
+}
+
+# Create DataFrame
+df = pd.DataFrame(data)
+df['Pose_Proficiency'] = df['Pose_Proficiency'].apply(lambda x: {f'Pose_{i+1}': score for i, score in enumerate(x)})
+df.head()
